@@ -1,5 +1,6 @@
 package com.johan.server.kafka.mongo.entities;
 
+import com.johan.pojos.Person;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,8 +24,8 @@ public class ReportEntity {
      */
     @Id
     private String id;
-    //private Person reportingPerson;
-    //private Person reportedPerson;
+    private Person reportingPerson;
+    private Person reportedPerson;
     private String eventDetails;
     private boolean isSolved;
 }
