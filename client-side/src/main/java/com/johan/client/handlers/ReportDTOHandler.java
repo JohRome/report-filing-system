@@ -1,5 +1,6 @@
 package com.johan.client.handlers;
 
+import com.johan.client.dtos.ReportDTO;
 import com.johan.client.utilities.Input;
 import com.johan.pojos.Address;
 import com.johan.pojos.Person;
@@ -16,11 +17,19 @@ public class ReportDTOHandler {
         this.input = input;
     }
 
-    public Person createPerson() {
+    public Person createPerson(boolean isReporting) {
+        if (isReporting)
+            log.info("Set your personal information");
+        else
+            log.info("Set the reported person's personal information");
+        String[] names = getNames();
+        var address = getAddress();
+        return new Person(names[0], names[1], address);
+    }
+    private String[] getNames() {
         String firstName = input.stringInput("Set first name -> ");
         String lastName = input.stringInput("Set last name -> ");
-        var address = getAddress();
-        return new Person(firstName,lastName,address);
+        return new String[]{firstName, lastName};
     }
     private Address getAddress() {
         String street = input.stringInput("Set street name -> ");
@@ -29,8 +38,18 @@ public class ReportDTOHandler {
         String zipCode = input.stringInput("Set zip code -> ");
         return new Address(street, apartmentNumber, city, zipCode);
     }
-    public String createEventDetails() {
+    private String createEventDetails() {
         log.info("Give us a detailed description of the event, what happened?");
         return input.stringInput("Set event details -> ");
+    }
+
+    public ReportDTO createDisturbanceReport() {
+
+        var reportingPerson = createPerson(true);
+        var reportedPerson = createPerson(false);
+        String eventDetails = createEventDetails();
+
+        return new ReportDTO(reportingPerson,reportedPerson,eventDetails);
+
     }
 }
