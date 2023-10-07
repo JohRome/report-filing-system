@@ -19,6 +19,7 @@ public class MongoController {
     public MongoController(ReportRepository reportRepository) {
         this.reportRepository = reportRepository;
     }
+
     @GetMapping("/get")
     public ResponseEntity<List<ReportEntity>> getReports() {
         try {

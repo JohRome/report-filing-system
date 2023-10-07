@@ -1,4 +1,5 @@
 package com.johan.client.consumer;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.stereotype.Service;
+
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
@@ -41,12 +43,12 @@ public class ConsoleConsumer {
             }
             for (ConsumerRecord<String, String> record : records) {
                 message[0] = record.value();
-                    try {
-                        JsonNode jsonNode = objectMapper.readTree(record.value());
-                        String formattedJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);
-                        log.info(formattedJson);
-                    } catch (Exception e) {
-                        log.error("Error while formatting JSON -> " + e.getMessage());
+                try {
+                    JsonNode jsonNode = objectMapper.readTree(record.value());
+                    String formattedJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);
+                    log.info(formattedJson);
+                } catch (Exception e) {
+                    log.error("Error while formatting JSON -> " + e.getMessage());
                 }
             }
         }

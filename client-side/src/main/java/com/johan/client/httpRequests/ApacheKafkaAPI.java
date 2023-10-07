@@ -16,6 +16,7 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.IOException;
+
 /**
  * Implementation class for sending HTTP POST requests to a Kafka API endpoint.
  */

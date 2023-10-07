@@ -21,6 +21,7 @@ public class Application {
     private final Input input;
     private final ReportDTOHandler reportDTOHandler;
     private final ConsoleConsumer consumer;
+
     @Autowired
     public Application(Sender sender, Input input, ReportDTOHandler reportDTOHandler, ConsoleConsumer consumer) throws IOException {
         this.sender = sender;

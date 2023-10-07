@@ -1,6 +1,7 @@
 package com.johan.client.interfaces;
 
 import java.io.IOException;
+
 /**
  * Interface defining methods for sending JSON messages and serializing objects to JSON.
  */

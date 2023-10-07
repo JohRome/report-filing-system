@@ -1,6 +1,7 @@
 package com.johan.client.utilities;
 
 import java.util.Scanner;
+
 /**
  * Utility class for user input handling, providing methods for reading strings and integers from the console.
  */

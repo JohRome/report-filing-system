@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Slf4j
 public class KafkaController {
     private final KafkaProducer kafkaProducer;
+
     public KafkaController(KafkaProducer kafkaProducer) {
         this.kafkaProducer = kafkaProducer;
     }

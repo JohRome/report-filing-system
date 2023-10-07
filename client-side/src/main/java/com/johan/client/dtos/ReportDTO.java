@@ -22,6 +22,7 @@ public class ReportDTO implements Serialized {
     private String eventDetails;
     @JsonProperty
     private boolean isSolved; // default value is false and later set to true by MongoDB admin when case is solved
+
     public ReportDTO(Person reportingPerson, Person reportedPerson, String eventDetails) {
         this.reportingPerson = reportingPerson;
         this.reportedPerson = reportedPerson;
