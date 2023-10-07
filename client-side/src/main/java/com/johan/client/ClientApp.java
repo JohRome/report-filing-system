@@ -20,7 +20,9 @@ public class ClientApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
         var input = new Input();
         new Application(new ApacheKafkaAPI(), input, new ReportDTOHandler(input), new ConsoleConsumer());
+
     }
 }

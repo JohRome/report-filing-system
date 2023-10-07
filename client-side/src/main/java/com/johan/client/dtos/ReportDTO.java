@@ -11,7 +11,7 @@ import lombok.ToString;
 /**
  * Data Transfer Object (DTO) class representing a report to be serialized and sent to Kafka.
  */
-@ToString
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,5 +35,14 @@ public class ReportDTO implements Serialized {
         this.reportingPerson = reportingPerson;
         this.reportedPerson = reportedPerson;
         this.eventDetails = eventDetails;
+    }
+
+    @Override
+    public String toString() {
+        return  "MongoID: " + id +
+                "\nReporting person: " + reportingPerson + getReportingPerson().getAddress() +
+                "\nReported person: " + reportedPerson +  getReportedPerson().getAddress() +
+                "\nEvent details: " + eventDetails +
+                "\nCase is solved: " + isSolved;
     }
 }
