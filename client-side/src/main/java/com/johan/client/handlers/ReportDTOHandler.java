@@ -17,7 +17,7 @@ public class ReportDTOHandler {
         this.input = input;
     }
 
-    public Person createPerson(boolean isReporting) {
+    private Person createPerson(boolean isReporting) {
         if (isReporting)
             log.info("Set your personal information");
         else
@@ -50,6 +50,5 @@ public class ReportDTOHandler {
         String eventDetails = createEventDetails();
 
         return new ReportDTO(reportingPerson,reportedPerson,eventDetails);
-
     }
 }

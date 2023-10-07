@@ -52,12 +52,6 @@ public class Application {
      * @throws IOException If an IO error occurs.
      */
     private void fileADisturbanceReport() throws IOException {
-//        var theReportingPerson = reportDTOHandler.createPerson(true);
-//        var theReportedPerson = reportDTOHandler.createPerson(false);
-//        String eventDetails = reportDTOHandler.createEventDetails();
-//
-//        Serialized reportForm = new ReportDTO(theReportingPerson, theReportedPerson, eventDetails);
-
         Serialized disturbanceReport = reportDTOHandler.createDisturbanceReport();
         String json = sender.serializeToJSON(disturbanceReport);
         sender.postRequest(json, "post");
