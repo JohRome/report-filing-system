@@ -3,10 +3,18 @@ package com.johan.client.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.johan.client.interfaces.Serialized;
 import com.johan.pojos.Person;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Data Transfer Object (DTO) class representing a report to be serialized and sent to Kafka.
  */
+@ToString
+@Getter
+@Setter
+@NoArgsConstructor
 public class ReportDTO implements Serialized {
 
     /**

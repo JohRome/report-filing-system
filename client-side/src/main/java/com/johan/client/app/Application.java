@@ -3,6 +3,7 @@ package com.johan.client.app;
 import com.johan.client.consumer.ConsoleConsumer;
 import com.johan.client.dtos.ReportDTO;
 import com.johan.client.handlers.ReportDTOHandler;
+import com.johan.client.httpRequests.MongoAPI;
 import com.johan.client.interfaces.Sender;
 import com.johan.client.interfaces.Serialized;
 import com.johan.client.utilities.Input;

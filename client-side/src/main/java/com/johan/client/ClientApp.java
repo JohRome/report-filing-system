@@ -4,6 +4,7 @@ import com.johan.client.app.Application;
 import com.johan.client.consumer.ConsoleConsumer;
 import com.johan.client.handlers.ReportDTOHandler;
 import com.johan.client.httpRequests.ApacheKafkaAPI;
+import com.johan.client.httpRequests.MongoAPI;
 import com.johan.client.utilities.Input;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
