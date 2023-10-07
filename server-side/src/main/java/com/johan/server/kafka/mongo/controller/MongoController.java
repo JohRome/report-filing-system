@@ -3,12 +3,9 @@ package com.johan.server.kafka.mongo.controller;
 import com.johan.server.kafka.mongo.consumer.ReportRepository;
 import com.johan.server.kafka.mongo.entities.ReportEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/reports")
@@ -25,6 +22,28 @@ public class MongoController {
         try {
             List<ReportEntity> reports = reportRepository.findAll();
             return ResponseEntity.ok(reports);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PatchMapping("/patch")
+    public ResponseEntity<ReportEntity> updateReportIsSolved(@RequestParam String id) {
+        try {
+            Optional<ReportEntity> report = reportRepository.findById(id);
+            report.get().setSolved(true);
+            reportRepository.save(report.get());
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<ReportEntity> deleteReport(@RequestParam String id) {
+        try {
+            reportRepository.deleteById(id);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
