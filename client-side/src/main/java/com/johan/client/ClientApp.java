@@ -23,13 +23,12 @@ public class ClientApp implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         var input = new Input();
+
         new Application(
                 new ApacheKafkaAPI(),
                 input,
                 new ReportDTOHandler(input),
                 new ConsoleConsumer(),
-                new MongoAdminHandler(input, new MongoAdminAPI()
-                ));
-
+                new MongoAdminHandler(input, new MongoAdminAPI()));
     }
 }

@@ -44,7 +44,7 @@ public class ConsoleConsumer {
             }
             for (ConsumerRecord<String, String> record : records) {
                 message[0] = record.value();
-                JSONFormatter.formatJSON(record.value());
+                log.info(JSONFormatter.formatJSON(record.value()));
 //                try {
 //                    JsonNode jsonNode = objectMapper.readTree(record.value());
 //                    String formattedJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);

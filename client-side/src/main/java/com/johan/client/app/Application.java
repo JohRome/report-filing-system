@@ -9,9 +9,7 @@ import com.johan.client.utilities.Input;
 import com.johan.client.utilities.Output;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 /**
  * Main application class responsible for user interaction and filing disturbance reports through the ApacheKafkaAPI class.
@@ -32,7 +30,7 @@ public class Application {
             ReportDTOHandler reportDTOHandler,
             ConsoleConsumer consumer,
             MongoAdminHandler handler
-            ) throws IOException, URISyntaxException, InterruptedException {
+            ) throws IOException {
         this.sender = sender;
         this.input = input;
         this.reportDTOHandler = reportDTOHandler;
@@ -41,21 +39,14 @@ public class Application {
         startApp();
     }
 
-    /**
-     * Starts the application and handles user interaction.
-     *
-     * @throws IOException If an IO error occurs.
-     */
+
     private void startApp() throws IOException {
         while (true) {
             Output.printMainMenu();
             switch (input.integerInput()) {
-                case 1 -> fileADisturbanceReport();
-                case 2 -> consumer.printAllMessagesInTopic("disturbance-reports", "all-messages");
-                case 3 -> mongoAdminHandler.fetchReportsForAdmin();
-                case 4 -> mongoAdminHandler.letAdminPatchReport();
-                case 5 -> mongoAdminHandler.letAdminDeleteReport();
-                case 6 -> System.exit(0);
+                case 1 -> enterKafkaMenu();
+                case 2 -> enterMongoAdminMenu();
+                case 3 -> System.exit(0);
             }
         }
     }
