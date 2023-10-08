@@ -1,8 +1,8 @@
-package com.johan.server.kafka.mongo.consumer;
+package com.johan.server.mongo.consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.johan.server.kafka.mongo.entities.ReportEntity;
+import com.johan.server.mongo.entities.ReportEntity;
 import com.mongodb.MongoException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

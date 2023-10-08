@@ -38,6 +38,6 @@ public class Output {
      */
     public static void printError(String error) {
         // sout instead of log.info used because of unwanted new line break
-        System.out.println(error);
+        System.out.print(error);
     }
 }

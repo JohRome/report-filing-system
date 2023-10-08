@@ -1,7 +1,7 @@
-package com.johan.server.kafka.mongo.controller;
+package com.johan.server.mongo.controller;
 
-import com.johan.server.kafka.mongo.consumer.ReportRepository;
-import com.johan.server.kafka.mongo.entities.ReportEntity;
+import com.johan.server.mongo.consumer.ReportRepository;
+import com.johan.server.mongo.entities.ReportEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

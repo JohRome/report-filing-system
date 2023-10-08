@@ -2,7 +2,7 @@ package com.johan.client.app;
 
 import com.johan.client.consumer.ConsoleConsumer;
 import com.johan.client.handlers.ReportDTOHandler;
-import com.johan.client.httpRequests.MongoAdmin;
+import com.johan.client.httpRequests.MongoAdminAPI;
 import com.johan.client.interfaces.Sender;
 import com.johan.client.interfaces.Serialized;
 import com.johan.client.utilities.Input;
@@ -23,15 +23,15 @@ public class Application {
     private final Input input;
     private final ReportDTOHandler reportDTOHandler;
     private final ConsoleConsumer consumer;
-    private final MongoAdmin mongoAdmin;
+    private final MongoAdminAPI mongoAdminAPI;
 
     @Autowired
-    public Application(Sender sender, Input input, ReportDTOHandler reportDTOHandler, ConsoleConsumer consumer, MongoAdmin mongoAdmin) throws IOException, URISyntaxException, InterruptedException {
+    public Application(Sender sender, Input input, ReportDTOHandler reportDTOHandler, ConsoleConsumer consumer, MongoAdminAPI mongoAdminAPI) throws IOException, URISyntaxException, InterruptedException {
         this.sender = sender;
         this.input = input;
         this.reportDTOHandler = reportDTOHandler;
         this.consumer = consumer;
-        this.mongoAdmin = mongoAdmin;
+        this.mongoAdminAPI = mongoAdminAPI;
         startApp();
     }
 
@@ -48,7 +48,8 @@ public class Application {
                 case 2 -> consumer.printAllMessagesInTopic("disturbance-reports", "all-messages");
                 case 3 -> getMongoDisturbanceReports();
                 case 4 -> deleteMongoDisturbanceReport();
-                case 5 -> System.exit(0);
+                case 5 -> patchMongoDisturbanceReport();
+                case 6 -> System.exit(0);
             }
         }
     }
@@ -64,13 +65,16 @@ public class Application {
         sender.postRequest(json, "post");
     }
 
-    private void getMongoDisturbanceReports() throws URISyntaxException, IOException, InterruptedException {
-        List<String> mongoReports = mongoAdmin.getAll();
+    private void getMongoDisturbanceReports() {
+        List<String> mongoReports = mongoAdminAPI.getAllDisturbanceReports();
         for (String mongoReport : mongoReports) {
             System.out.println(mongoReport);
         }
     }
-    private void deleteMongoDisturbanceReport() throws URISyntaxException, IOException, InterruptedException {
-        mongoAdmin.delete("65217b9292704926fc313d99");
+    private void patchMongoDisturbanceReport() {
+        mongoAdminAPI.patchDisturbanceReport("65217b9292704926fc313d99");
+    }
+    private void deleteMongoDisturbanceReport() {
+        mongoAdminAPI.deleteDisturbanceReport("65217b9292704926fc313d99");
     }
 }

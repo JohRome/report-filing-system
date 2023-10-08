@@ -1,4 +1,4 @@
-package com.johan.server.kafka.mongo.entities;
+package com.johan.server.mongo.entities;
 
 import com.johan.pojos.Person;
 import lombok.Getter;
