@@ -43,8 +43,7 @@ public class Application {
             switch (input.integerInput()) {
                 case 1 -> fileADisturbanceReport();
                 case 2 -> consumer.printAllMessagesInTopic("disturbance-reports", "all-messages");
-                case 3 -> MongoAPI.getAllReports();
-                case 4 -> System.exit(0);
+                case 3 -> System.exit(0);
             }
         }
     }
