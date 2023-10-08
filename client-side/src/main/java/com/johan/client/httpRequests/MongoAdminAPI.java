@@ -2,7 +2,6 @@ package com.johan.client.httpRequests;
 
 import com.johan.client.utilities.JSONFormatter;
 import lombok.extern.slf4j.Slf4j;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -72,7 +71,7 @@ public class MongoAdminAPI {
 
             httpResponseCode = response.statusCode();
             if (response.statusCode() == 200)
-                log.info("GET-request successful -> " + httpResponseCode);
+                log.info("DELETE-request successful -> " + httpResponseCode);
 
         } catch (URISyntaxException | IOException | InterruptedException e) {
             log.error("Error when deleting -> " + e.getMessage());

@@ -50,7 +50,7 @@ public class Input {
             // .nextLine() is used here instead of .nextInt() because of unwanted code jumps
             integerInput = Integer.parseInt(userInput.nextLine());
         } catch (NumberFormatException e) {
-            Output.printError("Input mismatch! Try again, fool\n");
+            Output.printError("Input mismatch! Try again, fool -> ");
             integerInput = integerInput();
         }
         return integerInput;

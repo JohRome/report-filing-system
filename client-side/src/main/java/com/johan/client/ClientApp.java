@@ -2,6 +2,7 @@ package com.johan.client;
 
 import com.johan.client.app.Application;
 import com.johan.client.consumer.ConsoleConsumer;
+import com.johan.client.handlers.MongoAdminHandler;
 import com.johan.client.handlers.ReportDTOHandler;
 import com.johan.client.httpRequests.ApacheKafkaAPI;
 import com.johan.client.httpRequests.MongoAdminAPI;
@@ -22,7 +23,13 @@ public class ClientApp implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         var input = new Input();
-        new Application(new ApacheKafkaAPI(), input, new ReportDTOHandler(input), new ConsoleConsumer(), new MongoAdminAPI());
+        new Application(
+                new ApacheKafkaAPI(),
+                input,
+                new ReportDTOHandler(input),
+                new ConsoleConsumer(),
+                new MongoAdminHandler(input, new MongoAdminAPI()
+                ));
 
     }
 }

@@ -1,8 +1,8 @@
 package com.johan.client.app;
 
 import com.johan.client.consumer.ConsoleConsumer;
+import com.johan.client.handlers.MongoAdminHandler;
 import com.johan.client.handlers.ReportDTOHandler;
-import com.johan.client.httpRequests.MongoAdminAPI;
 import com.johan.client.interfaces.Sender;
 import com.johan.client.interfaces.Serialized;
 import com.johan.client.utilities.Input;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
 
 /**
  * Main application class responsible for user interaction and filing disturbance reports through the ApacheKafkaAPI class.
@@ -23,15 +22,22 @@ public class Application {
     private final Input input;
     private final ReportDTOHandler reportDTOHandler;
     private final ConsoleConsumer consumer;
-    private final MongoAdminAPI mongoAdminAPI;
+    private final MongoAdminHandler mongoAdminHandler;
 
     @Autowired
-    public Application(Sender sender, Input input, ReportDTOHandler reportDTOHandler, ConsoleConsumer consumer, MongoAdminAPI mongoAdminAPI) throws IOException, URISyntaxException, InterruptedException {
+    public Application
+            (
+            Sender sender,
+            Input input,
+            ReportDTOHandler reportDTOHandler,
+            ConsoleConsumer consumer,
+            MongoAdminHandler handler
+            ) throws IOException, URISyntaxException, InterruptedException {
         this.sender = sender;
         this.input = input;
         this.reportDTOHandler = reportDTOHandler;
         this.consumer = consumer;
-        this.mongoAdminAPI = mongoAdminAPI;
+        this.mongoAdminHandler = handler;
         startApp();
     }
 
@@ -40,16 +46,39 @@ public class Application {
      *
      * @throws IOException If an IO error occurs.
      */
-    public void startApp() throws IOException, URISyntaxException, InterruptedException {
+    private void startApp() throws IOException {
         while (true) {
-            Output.printPostToAPIMenu();
+            Output.printMainMenu();
             switch (input.integerInput()) {
                 case 1 -> fileADisturbanceReport();
                 case 2 -> consumer.printAllMessagesInTopic("disturbance-reports", "all-messages");
-                case 3 -> getMongoDisturbanceReports();
-                case 4 -> deleteMongoDisturbanceReport();
-                case 5 -> patchMongoDisturbanceReport();
+                case 3 -> mongoAdminHandler.fetchReportsForAdmin();
+                case 4 -> mongoAdminHandler.letAdminPatchReport();
+                case 5 -> mongoAdminHandler.letAdminDeleteReport();
                 case 6 -> System.exit(0);
+            }
+        }
+    }
+
+    private void enterKafkaMenu() throws IOException {
+        while (true) {
+            Output.printKafkaMenu();
+            switch (input.integerInput()) {
+                case 1 -> fileADisturbanceReport();
+                case 2 -> consumer.printAllMessagesInTopic("disturbance-reports", "all-messages");
+                case 3 -> startApp();
+            }
+        }
+    }
+
+    private void enterMongoAdminMenu() throws IOException {
+        while (true) {
+            Output.printMongoAdminMenu();
+            switch (input.integerInput()) {
+                case 1 -> mongoAdminHandler.fetchReportsForAdmin();
+                case 2 -> mongoAdminHandler.letAdminPatchReport();
+                case 3 -> mongoAdminHandler.letAdminDeleteReport();
+                case 4 -> startApp();
             }
         }
     }
@@ -63,18 +92,5 @@ public class Application {
         Serialized disturbanceReport = reportDTOHandler.createDisturbanceReport();
         String json = sender.serializeToJSON(disturbanceReport);
         sender.postRequest(json, "post");
-    }
-
-    private void getMongoDisturbanceReports() {
-        List<String> mongoReports = mongoAdminAPI.getAllDisturbanceReports();
-        for (String mongoReport : mongoReports) {
-            System.out.println(mongoReport);
-        }
-    }
-    private void patchMongoDisturbanceReport() {
-        mongoAdminAPI.patchDisturbanceReport("65217b9292704926fc313d99");
-    }
-    private void deleteMongoDisturbanceReport() {
-        mongoAdminAPI.deleteDisturbanceReport("65217b9292704926fc313d99");
     }
 }

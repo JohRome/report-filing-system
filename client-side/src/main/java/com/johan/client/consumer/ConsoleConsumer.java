@@ -2,6 +2,7 @@ package com.johan.client.consumer;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.johan.client.utilities.JSONFormatter;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
@@ -34,7 +35,7 @@ public class ConsoleConsumer {
      */
     public void printAllMessagesInTopic(String topicName, String groupId) { // Inspiration from: Teacher Marcus.H and ChatGPT
         Consumer<String, String> consumer = consumerSetUp(topicName, groupId);
-        ObjectMapper objectMapper = new ObjectMapper();
+        //ObjectMapper objectMapper = new ObjectMapper();
         log.info("Messages in the topic:");
         while (true) {
             var records = consumer.poll(Duration.ofMillis(100));
@@ -43,13 +44,14 @@ public class ConsoleConsumer {
             }
             for (ConsumerRecord<String, String> record : records) {
                 message[0] = record.value();
-                try {
-                    JsonNode jsonNode = objectMapper.readTree(record.value());
-                    String formattedJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);
-                    log.info(formattedJson);
-                } catch (Exception e) {
-                    log.error("Error while formatting JSON -> " + e.getMessage());
-                }
+                JSONFormatter.formatJSON(record.value());
+//                try {
+//                    JsonNode jsonNode = objectMapper.readTree(record.value());
+//                    String formattedJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);
+//                    log.info(formattedJson);
+//                } catch (Exception e) {
+//                    log.error("Error while formatting JSON -> " + e.getMessage());
+//                }
             }
         }
         consumer.close();
