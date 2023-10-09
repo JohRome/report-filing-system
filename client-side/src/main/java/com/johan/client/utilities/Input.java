@@ -9,19 +9,11 @@ public class Input {
 
     private final Scanner userInput;
 
-    /**
-     * Constructor for Input, initializes the Scanner for user input.
-     */
+
     public Input() {
         this.userInput = new Scanner(System.in);
     }
 
-    /**
-     * Reads a string input from the user with a given prompt.
-     *
-     * @param prompt The prompt to display to the user.
-     * @return The string input provided by the user.
-     */
     public String stringInput(String prompt) {
         String stringInput;
         Output.printPrompt(prompt);
@@ -32,27 +24,27 @@ public class Input {
             boolean isCorrect = !stringInput.isEmpty() && !stringInput.isBlank() && !stringInput.matches(".*[åäöÅÄÖ].*");
 
             if (isCorrect)
-                return stringInput;
+                return stringInput.trim();
             else
                 Output.printError("Input mismatch! Try again, fool -> ");
         }
     }
+    public int integerInput(int menuIndexStart, int menuIndexEnd) {
+        int userChoice;
 
-    /**
-     * Reads an integer input from the user.
-     *
-     * @return The integer input provided by the user.
-     */
-    public int integerInput() {
-        int integerInput;
+        while (true) {
 
-        try {
-            // .nextLine() is used here instead of .nextInt() because of unwanted code jumps
-            integerInput = Integer.parseInt(userInput.nextLine());
-        } catch (NumberFormatException e) {
-            Output.printError("Input mismatch! Try again, fool -> ");
-            integerInput = integerInput();
+            try {
+                // .nextLine() is used here instead of .nextInt() because of unwanted code jumps
+                userChoice = Integer.parseInt(userInput.nextLine());
+                if ( (userChoice < menuIndexStart) || (userChoice > menuIndexEnd) ) {
+                    Output.printError("Not a valid menu choice, try again - > ");
+                }
+                else return userChoice;
+            } catch (NumberFormatException e ) {
+                Output.printError("A String is not a valid input, try again - > ");
+            }
         }
-        return integerInput;
     }
 }
+

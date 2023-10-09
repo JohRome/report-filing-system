@@ -43,7 +43,7 @@ public class Application {
     private void startApp() throws IOException {
         while (true) {
             Output.printMainMenu();
-            switch (input.integerInput()) {
+            switch (input.integerInput(1,3)) {
                 case 1 -> enterKafkaMenu();
                 case 2 -> enterMongoAdminMenu();
                 case 3 -> System.exit(0);
@@ -54,7 +54,7 @@ public class Application {
     private void enterKafkaMenu() throws IOException {
         while (true) {
             Output.printKafkaMenu();
-            switch (input.integerInput()) {
+            switch (input.integerInput(1,3)) {
                 case 1 -> fileADisturbanceReport();
                 case 2 -> consumer.printAllMessagesInTopic("disturbance-reports", "all-messages");
                 case 3 -> startApp();
@@ -65,7 +65,7 @@ public class Application {
     private void enterMongoAdminMenu() throws IOException {
         while (true) {
             Output.printMongoAdminMenu();
-            switch (input.integerInput()) {
+            switch (input.integerInput(1,4)) {
                 case 1 -> mongoAdminHandler.fetchReportsForAdmin();
                 case 2 -> mongoAdminHandler.letAdminPatchReport();
                 case 3 -> mongoAdminHandler.letAdminDeleteReport();
