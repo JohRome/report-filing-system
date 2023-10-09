@@ -20,7 +20,7 @@ public class Input {
 
         while (true) {
             stringInput = userInput.nextLine();
-            // regex is used here to check for unwanted characters, which are not supported by the HTTP Client
+            // regex is used here to check for unwanted characters, which are not supported by the Apache HTTP Client 5
             boolean isCorrect = !stringInput.isEmpty() && !stringInput.isBlank() && !stringInput.matches(".*[åäöÅÄÖ].*");
 
             if (isCorrect)

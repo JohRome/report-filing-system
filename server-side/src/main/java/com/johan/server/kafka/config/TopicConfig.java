@@ -6,16 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
 
 /**
- * Configuration class for defining Kafka topics.
+ * Configuration class for defining a Kafka topic.
  */
 @Configuration
 public class TopicConfig {
-
-    /**
-     * Creates and configures a new Kafka topic called "disturbance-reports."
-     *
-     * @return A NewTopic instance representing the Kafka topic.
-     */
     @Bean
     public NewTopic reportsTopic() {
         return TopicBuilder

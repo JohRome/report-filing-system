@@ -3,9 +3,10 @@ package com.johan.client.handlers;
 import com.johan.client.httpRequests.MongoAdminAPI;
 import com.johan.client.utilities.Input;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
 
+/** MongoAdminHandler lets the Mongo Admin perform various requests
+ * TODO: fix logical error that lets admin be prompted even though no reports exists in the MongoDB*/
 @Slf4j
 public class MongoAdminHandler {
     private final Input input;
@@ -35,9 +36,9 @@ public class MongoAdminHandler {
     public void fetchReportsForAdmin() {
         List<String> fetchedReports = mongoAdminAPI.getAllDisturbanceReports();
 
-        if (fetchedReports.isEmpty())
+        if (fetchedReports.isEmpty()) {
             log.info("No reports in your MongoDB");
-        else {
+        } else {
             log.info("All Disturbance Reports in your MongoDB");
             for (String fetchedReport : fetchedReports) {
                 log.info(fetchedReport);

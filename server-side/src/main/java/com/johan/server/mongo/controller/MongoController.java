@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/** MongoController is used to set up API endpoints for the Mongo Admin to use when the need to
+ * perform various operations arise */
+
 @RestController
 @RequestMapping("api/v1/reports")
 public class MongoController {

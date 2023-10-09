@@ -18,7 +18,7 @@ public class ReportDTOHandler {
         this.input = input;
     }
 
-    private Person createPerson(boolean isReporting) {
+    private Person createPerson(boolean isReporting) { // boolean check to see who's the reporting/reported person
         if (isReporting)
             log.info("\nSet your personal information\n");
         else

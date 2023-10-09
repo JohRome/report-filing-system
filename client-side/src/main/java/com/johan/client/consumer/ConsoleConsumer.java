@@ -1,7 +1,5 @@
 package com.johan.client.consumer;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.johan.client.utilities.JSONFormatter;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

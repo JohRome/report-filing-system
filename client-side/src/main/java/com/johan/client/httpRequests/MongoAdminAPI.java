@@ -14,22 +14,21 @@ import java.util.List;
 
 @Slf4j
 public class MongoAdminAPI {
-    private int httpResponseCode;
-
     public List<String> getAllDisturbanceReports() {
-        List<String> reports = new ArrayList<>();
+        List<String> reports = new ArrayList<>(); // list to store all the reports from the GET-request
+        // Creating a http client with appropriate GET-request method
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI("http://localhost:8080/api/v1/reports/get"))
                     .GET()
                     .build();
+            // Executing the request, and if 200, stores it in the reports list
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             String responseBody = response.body();
 
-            httpResponseCode = response.statusCode();
-            //if (response.statusCode() == 200)
-            reports.add(JSONFormatter.formatJSON(responseBody));
+            if (response.statusCode() == 200)
+                reports.add(JSONFormatter.formatJSON(responseBody));
 
         } catch (URISyntaxException | IOException | InterruptedException e) {
             log.error("GET-request failed -> " + e.getMessage());
@@ -39,6 +38,7 @@ public class MongoAdminAPI {
     }
 
     public void patchDisturbanceReport(String id) {
+        // Creating a http client with appropriate PATCH-request method
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -46,9 +46,8 @@ public class MongoAdminAPI {
                     .method("PATCH", HttpRequest.BodyPublishers.ofString(id))
                     .header("Content-Type", "application/json")
                     .build();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            httpResponseCode = response.statusCode();
+            // Executing the request
+            client.send(request, HttpResponse.BodyHandlers.ofString());
 
         } catch (URISyntaxException | IOException | InterruptedException e) {
             log.error("PATCH-request failed ->" + e.getMessage());
@@ -57,16 +56,16 @@ public class MongoAdminAPI {
 
 
     public void deleteDisturbanceReport(String id) {
-
+        // Creating a http client with appropriate DELETE-request method
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI("http://localhost:8080/api/v1/reports/delete?id=" + id))
                     .DELETE()
                     .build();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            // Executing the request
+            client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            httpResponseCode = response.statusCode();
 
         } catch (URISyntaxException | IOException | InterruptedException e) {
             log.error("Error when deleting -> " + e.getMessage());

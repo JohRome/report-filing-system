@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.johan.client.consumer"})
+@ComponentScan({"com.johan.client.consumer"}) // Is required in order to pass an instance of ConsoleConsumer to Application
 public class ClientApp implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(ClientApp.class);

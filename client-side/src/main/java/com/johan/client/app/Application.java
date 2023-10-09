@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- * Main application class responsible for user interaction and filing disturbance reports through the ApacheKafkaAPI class.
+ * Application class is responsible to let the user chose what to do, based on the menu system provided.
  */
 @Component
 public class Application {
