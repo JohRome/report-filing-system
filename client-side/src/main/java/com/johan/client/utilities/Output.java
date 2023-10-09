@@ -35,12 +35,12 @@ public class Output {
     public static void printMongoAdminMenu() {
         log.info("""
                   MONGO ADMIN MENU OPTIONS
-                 ---------------------------
-                | 1 - Print all reports     |
-                | 2 - Patch a report by id  |
-                | 3 - Delete a report by id |
-                | 4 - Back to main menu     |
-                 ---------------------------
+                 -------------------------
+                | 1 - Get all reports     |
+                | 2 - Update report by id |
+                | 3 - Delete report by id |
+                | 4 - Back to main menu   |
+                 -------------------------
                      MAKE A MENU CHOICE
                 """);
     }
