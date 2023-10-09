@@ -79,7 +79,7 @@ Sometimes, things go wrong for whatever reason. The most common of reasons, that
 
 ---
 ### License
-[Apache License 2.0](LICENSE) NEED FIXING
+[Apache License 2.0](LICENSE)
 
 ---
 ### Tests
