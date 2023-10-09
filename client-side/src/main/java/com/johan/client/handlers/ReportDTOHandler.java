@@ -20,9 +20,9 @@ public class ReportDTOHandler {
 
     private Person createPerson(boolean isReporting) {
         if (isReporting)
-            log.info("Set your personal information");
+            log.info("\nSet your personal information\n");
         else
-            log.info("Set the reported person's personal information");
+            log.info("\nSet the reported person's personal information\n");
         String[] names = getNames();
         var address = getAddress();
         return new Person(names[0], names[1], address);
@@ -43,7 +43,7 @@ public class ReportDTOHandler {
     }
 
     private String createEventDetails() {
-        log.info("Give us a detailed description of the event, what happened?");
+        log.info("\nGive us a detailed description of the event! Why are you filing a disturbance report?\n");
         return input.stringInput("Set event details -> ");
     }
 

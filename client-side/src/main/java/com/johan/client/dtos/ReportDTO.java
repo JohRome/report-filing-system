@@ -6,7 +6,7 @@ import com.johan.pojos.Person;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+import lombok.experimental.Accessors;
 
 /**
  * Data Transfer Object (DTO) class representing a report to be serialized and sent to Kafka.
@@ -29,20 +29,11 @@ public class ReportDTO implements Serialized {
     @JsonProperty
     private String eventDetails;
     @JsonProperty
-    private boolean isSolved; // default value is false and later set to true by MongoDB admin when case is solved
+    private boolean solved; // default value is false and later set to true by MongoDB admin when case is solved
 
     public ReportDTO(Person reportingPerson, Person reportedPerson, String eventDetails) {
         this.reportingPerson = reportingPerson;
         this.reportedPerson = reportedPerson;
         this.eventDetails = eventDetails;
-    }
-
-    @Override
-    public String toString() {
-        return  "MongoID: " + id +
-                "\nReporting person: " + reportingPerson + getReportingPerson().getAddress() +
-                "\nReported person: " + reportedPerson +  getReportedPerson().getAddress() +
-                "\nEvent details: " + eventDetails +
-                "\nCase is solved: " + isSolved;
     }
 }

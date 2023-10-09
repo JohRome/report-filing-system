@@ -18,13 +18,17 @@ public class MongoAdminHandler {
 
     public void letAdminPatchReport() {
         fetchReportsForAdmin();
-        String reportToPatch = input.stringInput("Copy-paste the id to set boolean value \"isSolved to true\"");
+        String reportToPatch = input.stringInput(
+                "Copy-paste the id in the console to set boolean value \"solved\" to true -> "
+        );
         mongoAdminAPI.patchDisturbanceReport(reportToPatch);
     }
 
     public void letAdminDeleteReport() {
         fetchReportsForAdmin();
-        String reportToDelete = input.stringInput("Copy-paste the id of the report you want to delete -> ");
+        String reportToDelete = input.stringInput(
+                "Copy-paste the id in the console of the report you want to delete -> "
+        );
         mongoAdminAPI.deleteDisturbanceReport(reportToDelete);
     }
 
@@ -36,7 +40,7 @@ public class MongoAdminHandler {
         else {
             log.info("All Disturbance Reports in your MongoDB");
             for (String fetchedReport : fetchedReports) {
-                log.info(fetchedReport + "\n=============================");
+                log.info(fetchedReport);
             }
         }
     }

@@ -35,24 +35,19 @@ public class ConsoleConsumer {
      */
     public void printAllMessagesInTopic(String topicName, String groupId) { // Inspiration from: Teacher Marcus.H and ChatGPT
         Consumer<String, String> consumer = consumerSetUp(topicName, groupId);
-        //ObjectMapper objectMapper = new ObjectMapper();
-        log.info("Messages in the topic:");
+
         while (true) {
             var records = consumer.poll(Duration.ofMillis(100));
             if (records.isEmpty()) {
-                break;
+                log.info("No messages in the topic");
+            } else {
+                log.info("Messages in the topic:");
+                for (ConsumerRecord<String, String> record : records) {
+                    message[0] = record.value();
+                    log.info(JSONFormatter.formatJSON(record.value()));
+                }
             }
-            for (ConsumerRecord<String, String> record : records) {
-                message[0] = record.value();
-                log.info(JSONFormatter.formatJSON(record.value()));
-//                try {
-//                    JsonNode jsonNode = objectMapper.readTree(record.value());
-//                    String formattedJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);
-//                    log.info(formattedJson);
-//                } catch (Exception e) {
-//                    log.error("Error while formatting JSON -> " + e.getMessage());
-//                }
-            }
+            break;
         }
         consumer.close();
     }

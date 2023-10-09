@@ -4,7 +4,7 @@ import com.johan.pojos.Person;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,7 +14,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Setter
 @Getter
-@ToString
 @NoArgsConstructor
 @Document(collection = "reports")
 public class ReportEntity {
@@ -27,5 +26,5 @@ public class ReportEntity {
     private Person reportingPerson;
     private Person reportedPerson;
     private String eventDetails;
-    private boolean isSolved;
+    private boolean solved;
 }
