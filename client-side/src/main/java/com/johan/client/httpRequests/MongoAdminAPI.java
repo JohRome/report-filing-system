@@ -2,6 +2,7 @@ package com.johan.client.httpRequests;
 
 import com.johan.client.utilities.JSONFormatter;
 import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,7 +18,6 @@ public class MongoAdminAPI {
 
     public List<String> getAllDisturbanceReports() {
         List<String> reports = new ArrayList<>();
-
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -28,10 +28,8 @@ public class MongoAdminAPI {
             String responseBody = response.body();
 
             httpResponseCode = response.statusCode();
-            if (response.statusCode() == 200) {
-                reports.add(JSONFormatter.formatJSON(responseBody));
-                log.info("GET-request successful -> " + httpResponseCode);
-            }
+            //if (response.statusCode() == 200)
+            reports.add(JSONFormatter.formatJSON(responseBody));
 
         } catch (URISyntaxException | IOException | InterruptedException e) {
             log.error("GET-request failed -> " + e.getMessage());
@@ -41,7 +39,6 @@ public class MongoAdminAPI {
     }
 
     public void patchDisturbanceReport(String id) {
-
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -52,8 +49,7 @@ public class MongoAdminAPI {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             httpResponseCode = response.statusCode();
-            if (response.statusCode() == 200)
-                log.info("PATCH-request succeeded -> " + httpResponseCode);
+
         } catch (URISyntaxException | IOException | InterruptedException e) {
             log.error("PATCH-request failed ->" + e.getMessage());
         }
@@ -61,6 +57,7 @@ public class MongoAdminAPI {
 
 
     public void deleteDisturbanceReport(String id) {
+
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -70,8 +67,6 @@ public class MongoAdminAPI {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             httpResponseCode = response.statusCode();
-            if (response.statusCode() == 200)
-                log.info("DELETE-request successful -> " + httpResponseCode);
 
         } catch (URISyntaxException | IOException | InterruptedException e) {
             log.error("Error when deleting -> " + e.getMessage());

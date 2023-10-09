@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JSONFormatter {
     public static String formatJSON(String toFormat) {
-        String formattedJSON = "";
+        String formattedJSON = null;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(toFormat);
