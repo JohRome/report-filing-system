@@ -8,7 +8,7 @@
 ---
 ### Description
 My motivation for creating this application was due to the fact that I think the time it takes to file a disturbance report, if your neighbours are making too much noise, is too long.  
-With minimal effort, the user is able to file a report and send it to the landlord, who's then able to view the report and take immediate action.
+With minimal effort, the user is able to file a report and send it to the landlord (MongoAdmin), who's then able to view the report and take immediate action thanks to a MongoDB API.
 <br>Integrating Apache Kafka in this application, the report is directly sent to the landlords database, preventing middlemen to interfere and causing delays in the process.
 <br>I learned a great deal about the importance of integrating Apache Kafka in applications, not only to improve the user experience, but more importantly, to improve the application's efficiency.
 
@@ -79,7 +79,7 @@ Sometimes, things go wrong for whatever reason. The most common of reasons, that
 
 ---
 ### License
-[Apache License 2.0](LICENSE)
+[Apache License 2.0](LICENSE) NEED FIXING
 
 ---
 ### Tests
