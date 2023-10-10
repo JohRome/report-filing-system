@@ -78,7 +78,7 @@ Något som var besvärligt till en början var även att låta en modul ha en an
     + *Motivering:* Att se till att data som matas in är korrekt så att det förhindrar problem vidare i programmet är av största vikt. Används felaktiga värden, som "åäöÅÄÖ" t.ex, så bes användaren att mata in korrekt värde till det att kravet uppnås. Detta medför att programmet inte kraschar lika lätt och att det inte dyker upp konstiga tecken i MongoDB.
   + JSONFormatter:
     + *Lösning:* Ansvarar för att formatera JSON-strängar till ett snyggare format.
-    + *Motivering:* Detta gör att det blir lättare att läsa JSON-strängar i konsolen. I nuläget hade jag egentligen kunnat skippa att bygga en hel klass för detta, eftersom det bara är en metod i dagsläget som använder sig utav den. Detta kommer dock att visa sig vara bra i framtiden när jag vill bygga vidare på projektet.
+    + *Motivering:* Detta gör att det blir lättare att läsa JSON-strängar i konsolen. Jag valde att göra en liten klass av denna eftersom metoden behövs på fler än ett ställe i programmet.
 
   + Output:
     + *Lösning:* Skriver ut menyalternativ för användaren samt meddelar om input är ej korrekt.

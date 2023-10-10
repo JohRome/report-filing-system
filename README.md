@@ -20,7 +20,7 @@ With minimal effort, the user is able to file a report and send it to the landlo
 + [Credits](#credits)
 + [Dependencies](#dependencies)
 + [License](#license)
-+ [Link to Documentation](SpringBoot-ApacheKafka-Project/Installation&Documentation/Documentation.md)
++ [Link to Documentation](Installation&Documentation/Documentation.md)
 + [Tests](#tests)
 
 ---
