@@ -12,4 +12,12 @@ public class Address {
     private String apartmentNumber;
     private String city;
     private String zipCode;
+
+    @Override
+    public String toString() {
+        return  "\nStreet: " + street +
+                "\nApartment no: " + apartmentNumber +
+                "\nCity: " + city +
+                "\nZip code: " + zipCode;
+    }
 }

@@ -1,8 +1,15 @@
 package com.johan.client.utilities;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.johan.client.dtos.ReportDTO;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**JSONFormatter has only the static method to provide a more readable JSON-format for the Mongo Admin
  * and the Kafka ConsoleConsumer */
 

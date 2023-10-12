@@ -6,6 +6,7 @@ import com.johan.pojos.Person;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -35,5 +36,16 @@ public class ReportDTO implements Serialized {
         this.reportingPerson = reportingPerson;
         this.reportedPerson = reportedPerson;
         this.eventDetails = eventDetails;
+    }
+
+    @Override
+    public String toString() {
+        return  "{" +
+                "\nID: " + id +
+                "\n\nReporting person " + reportingPerson +
+                "\n\nReported person " + reportedPerson +
+                "\n\nEvent details: " + eventDetails +
+                "\nSolved: " + solved +
+                "\n}\n";
     }
 }

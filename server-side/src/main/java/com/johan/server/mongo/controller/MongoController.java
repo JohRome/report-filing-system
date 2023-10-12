@@ -11,7 +11,7 @@ import java.util.Optional;
  * perform various operations arise */
 
 @RestController
-@RequestMapping("api/v1/reports")
+@RequestMapping("api/v1/mongo/reports")
 public class MongoController {
 
     private final ReportRepository reportRepository;

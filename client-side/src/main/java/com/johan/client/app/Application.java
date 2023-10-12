@@ -1,7 +1,7 @@
 package com.johan.client.app;
 
 import com.johan.client.consumer.ConsoleConsumer;
-import com.johan.client.handlers.MongoAdminHandler;
+import com.johan.client.handlers.MongoAdminReportHandler;
 import com.johan.client.handlers.ReportDTOHandler;
 import com.johan.client.interfaces.Sender;
 import com.johan.client.interfaces.Serialized;
@@ -20,7 +20,7 @@ public class Application {
     private final Input input;
     private final ReportDTOHandler reportDTOHandler;
     private final ConsoleConsumer consumer;
-    private final MongoAdminHandler mongoAdminHandler;
+    private final MongoAdminReportHandler mongoAdminReportHandler;
 
     @Autowired
     public Application
@@ -29,13 +29,13 @@ public class Application {
             Input input,
             ReportDTOHandler reportDTOHandler,
             ConsoleConsumer consumer,
-            MongoAdminHandler handler
+            MongoAdminReportHandler handler
             ) throws IOException {
         this.sender = sender;
         this.input = input;
         this.reportDTOHandler = reportDTOHandler;
         this.consumer = consumer;
-        this.mongoAdminHandler = handler;
+        this.mongoAdminReportHandler = handler;
         startApp();
     }
 
@@ -66,9 +66,9 @@ public class Application {
         while (true) {
             Output.printMongoAdminMenu();
             switch (input.integerInput(1,4)) {
-                case 1 -> mongoAdminHandler.fetchReportsForAdmin();
-                case 2 -> mongoAdminHandler.letAdminPatchReport();
-                case 3 -> mongoAdminHandler.letAdminDeleteReport();
+                case 1 -> mongoAdminReportHandler.fetchReportsForAdmin();
+                case 2 -> mongoAdminReportHandler.letAdminPatchReport();
+                case 3 -> mongoAdminReportHandler.letAdminDeleteReport();
                 case 4 -> startApp();
             }
         }

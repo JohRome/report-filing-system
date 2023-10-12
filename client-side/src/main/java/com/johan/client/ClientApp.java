@@ -2,7 +2,7 @@ package com.johan.client;
 
 import com.johan.client.app.Application;
 import com.johan.client.consumer.ConsoleConsumer;
-import com.johan.client.handlers.MongoAdminHandler;
+import com.johan.client.handlers.MongoAdminReportHandler;
 import com.johan.client.handlers.ReportDTOHandler;
 import com.johan.client.httpRequests.ApacheKafkaAPI;
 import com.johan.client.httpRequests.MongoAdminAPI;
@@ -29,6 +29,6 @@ public class ClientApp implements CommandLineRunner {
                 input,
                 new ReportDTOHandler(input),
                 new ConsoleConsumer(),
-                new MongoAdminHandler(input, new MongoAdminAPI()));
+                new MongoAdminReportHandler(input, new MongoAdminAPI()));
     }
 }
