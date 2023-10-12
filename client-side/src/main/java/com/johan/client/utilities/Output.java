@@ -59,9 +59,10 @@ public class Output {
         System.out.print(error);
     }
 
-    public static void printReportDTOs(List<ReportDTO> dto) {
-        for (ReportDTO reportDTO : dto) {
-            log.info(reportDTO.toString());
+    public static List<ReportDTO> printIndexedReports(List<ReportDTO> dto) {
+        for (int i = 0; i < dto.size(); i++) {
+            System.out.println(i + " : " + dto.get(i));
         }
+        return dto;
     }
 }

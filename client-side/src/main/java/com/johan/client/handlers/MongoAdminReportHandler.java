@@ -5,14 +5,16 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.johan.client.dtos.ReportDTO;
 import com.johan.client.httpRequests.MongoAdminAPI;
-import com.johan.client.interfaces.Serialized;
 import com.johan.client.utilities.Input;
 import com.johan.client.utilities.Output;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**MongoAdminReportHandler lets the Mongo Admin perform various HTTP-requests on a MongoAPI endpoint*/
+/**
+ * MongoAdminReportHandler lets the Mongo Admin perform various HTTP-requests on MongoAPI endpoints
+ */
 @Slf4j
 public class MongoAdminReportHandler {
     private final Input input;
@@ -24,45 +26,62 @@ public class MongoAdminReportHandler {
         this.mongoAdminAPI = mongoAdminAPI;
     }
 
-    /**
-     * http://localhost:8080/api/v1/mongo/reports/patch?id=
-     */
     public void letAdminPatchReport() throws JsonProcessingException {
-        fetchReportsForAdmin();
-        String reportToPatch = input.stringInput(
-                "Copy-paste the id in the console to set boolean value \"solved\" to true -> "
-        );
-        mongoAdminAPI.patchMongoDoc(uri, "/patch?id=", reportToPatch);
-    }
+        // The Output class returns an indexed list of ReportDTO
+        List<ReportDTO> indexedReports = Output.printIndexedReports(fetchReportsForAdmin());
+        // letAdminChoseIndex returning the wanted report do delete
+        int reportToPatchIndex;
 
-    /**
-     * http://localhost:8080/api/v1/mongo/reports/delete?id=
-     */
+        try {
+            reportToPatchIndex = letAdminChoseIndex("patch", indexedReports);
+            ReportDTO reportToPatch = indexedReports.get(reportToPatchIndex);
+            mongoAdminAPI.patchMongoDoc(uri, "/patch?id=", reportToPatch.getId());
+
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            Output.printError("No such index exists\n");
+        }
+    }
 
     public void letAdminDeleteReport() throws JsonProcessingException {
-        fetchReportsForAdmin();
-        String reportToDelete = input.stringInput(
-                "Copy-paste the id in the console of the report you want to delete -> "
-        );
-        mongoAdminAPI.deleteMongoDoc(uri, "/delete?id=", reportToDelete);
+        // The Output class returns an indexed list of ReportDTO
+        List<ReportDTO> indexedReports = Output.printIndexedReports(fetchReportsForAdmin());
+        
+        int reportToDeleteIndex;
+        try {
+            // letAdminChoseIndex returning the wanted report do delete
+            reportToDeleteIndex = letAdminChoseIndex("delete", indexedReports);
+            ReportDTO reportToDelete = indexedReports.get(reportToDeleteIndex);
+            mongoAdminAPI.deleteMongoDoc(uri, "/delete?id=", reportToDelete.getId());
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            Output.printError("No such index exists\n");
+        }
     }
 
-    public List<ReportDTO> convertJsonToReportDTO(String json) throws JsonProcessingException {
-        List<ReportDTO> dtos;
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<ReportDTO>> typeReference = new TypeReference<>() {};
-        dtos = objectMapper.readValue(json, typeReference);
+    private int letAdminChoseIndex(String httpRequest, List<ReportDTO> indexedReports) {
+        return Integer.parseInt(input.stringInput(
+                "Enter index on the report you want to "
+                        + httpRequest + " -> "));
+    }
+    public void getAllReports() throws JsonProcessingException {
+        Output.printIndexedReports(fetchReportsForAdmin());
+    }
+
+
+    public List<ReportDTO> fetchReportsForAdmin() throws JsonProcessingException {
+        List<String> mongoDocs = mongoAdminAPI.getAllMongoDocs(uri, "/get");
+        List<ReportDTO> dtos = new ArrayList<>();
+        if (!mongoDocs.isEmpty()) {
+            dtos = convertJsonToReportDTO(String.join("", mongoDocs));
+        }
         return dtos;
     }
 
-    /**
-     * http://localhost:8080/api/v1/mongo/reports/get
-     */
-    public void fetchReportsForAdmin() throws JsonProcessingException {
-        List<String> mongoDocs = mongoAdminAPI.getAllMongoDocs(uri,"/get");
-        if (!mongoDocs.isEmpty()) {
-            List<ReportDTO> dtos = convertJsonToReportDTO(String.join("", mongoDocs));
-            Output.printReportDTOs(dtos);
-        }
+    private List<ReportDTO> convertJsonToReportDTO(String json) throws JsonProcessingException {
+        List<ReportDTO> dtos;
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<List<ReportDTO>> typeReference = new TypeReference<>() {
+        };
+        dtos = objectMapper.readValue(json, typeReference);
+        return dtos;
     }
 }

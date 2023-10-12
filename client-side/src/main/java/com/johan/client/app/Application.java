@@ -66,7 +66,7 @@ public class Application {
         while (true) {
             Output.printMongoAdminMenu();
             switch (input.integerInput(1,4)) {
-                case 1 -> mongoAdminReportHandler.fetchReportsForAdmin();
+                case 1 -> mongoAdminReportHandler.getAllReports();
                 case 2 -> mongoAdminReportHandler.letAdminPatchReport();
                 case 3 -> mongoAdminReportHandler.letAdminDeleteReport();
                 case 4 -> startApp();
