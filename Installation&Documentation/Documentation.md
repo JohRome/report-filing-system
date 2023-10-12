@@ -64,9 +64,9 @@ Något som var besvärligt till en början var även att låta en modul ha en an
   + ReportDTOHandler:
     + *Lösning:* Ansvarar för att skapa en ReportDTO.
     + *Motivering:* Jag ville ha en separat klass som utför skapandet istället för Application-klassen. Varför jag gjorde detta var för att jag inte ville sprida ut ansvarsområden över flera klasser, och istället låta en hantera detta. Detta medför att jag kan lättare felsöka om något skulle gå fel.
-  + MongoAdminHandler:
-    + *Lösning:* Ansvarar för att låta Mongo admin utföra sina requests. Dock så finns det logiska fel som gör att admin kan anropa metoder även när det inte finns något att hämta.
-    + *Motivering*: Samma som ovan. Jag tycker det är snyggare och lättare att ha en separat klass som hanterar alla request-ärenden som skall utföras.
+  + MongoAdminReportHandler:
+    + *Lösning:* Ansvarar för att låta Mongo admin utföra sina requests. Använder i mitt förhopp alldeles för komplexa metoder för att mappa en JSON-sträng till en ReportDTO och kollar listan om det finns innehåll och "öppnar upp" metoder åt Mongo Admin om så är fallet.
+    + *Motivering*: Samma som ovan. Jag tycker det är snyggare och lättare att ha en separat klass som hanterar alla request-ärenden som skall utföras. Dock så blev denna klass MYCKET mer komplicerad än vad jag trodde. Tips på förbättring/förenkling mottages gärna. Men målet med klassen är uppnått och jag känner mig äntligen nöjd efter så mångar timmar av slit
   + ApacheKafkaAPI:
     + *Lösning:* Här utförs själva HTTP POST-request med hjälp av Apache HTTP client och ser till att data som ska skickas är i JSON-format genom Spring Boots integrerade dependency, Jackson.
     + *Motivering:* Jag valde att använda mig av Apache HTTP client för att utföra POST-requesten, då jag tyckte att det var enkelt att använda och det var enkelt att få till en fungerande POST-request. Jag valde även att använda mig av Spring Boots integrerade dependency för att konvertera data till JSON-format. Detta gjorde att jag slapp använda mig av ytterligare dependencies.
