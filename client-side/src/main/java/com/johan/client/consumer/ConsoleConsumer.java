@@ -32,7 +32,7 @@ public class ConsoleConsumer {
      * @param topicName The name of the topic to which the consumer will subscribe.
      * @param groupId   The consumer group ID.
      */
-    public void printAllMessagesInTopic(String topicName, String groupId) throws JsonProcessingException { // Inspiration from: Teacher Marcus.H and ChatGPT
+    public void printAllMessagesInTopic(String topicName, String groupId) { // Inspiration from: Teacher Marcus.H and ChatGPT
         Consumer<String, String> consumer = consumerSetUp(topicName, groupId);
 
         while (true) {
