@@ -46,7 +46,8 @@ public class MongoAdminReportHandler {
     /**
      * Step 2:
      * The HTTP GET-request is called and joins the JSON-string into a single line and then converts it
-     * into a ReportDTO, which gets added to the list
+     * into a ReportDTO, which gets added to the list.
+     * This method is used for the methods below
      */
 
     public List<ReportDTO> fetchReportsForAdmin() throws JsonProcessingException {
