@@ -5,10 +5,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.johan.client.dtos.ReportDTO;
 import com.johan.client.httpRequests.MongoAdminAPI;
+import com.johan.client.interfaces.Serialized;
 import com.johan.client.utilities.Input;
+import com.johan.client.utilities.Output;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**MongoAdminReportHandler lets the Mongo Admin perform various HTTP-requests on a MongoAPI endpoint*/
@@ -46,7 +47,7 @@ public class MongoAdminReportHandler {
         mongoAdminAPI.deleteMongoDoc(uri, "/delete?id=", reportToDelete);
     }
 
-    public List<ReportDTO> test(String json) throws JsonProcessingException {
+    public List<ReportDTO> convertJsonToReportDTO(String json) throws JsonProcessingException {
         List<ReportDTO> dtos;
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<List<ReportDTO>> typeReference = new TypeReference<>() {};
@@ -60,10 +61,8 @@ public class MongoAdminReportHandler {
     public void fetchReportsForAdmin() throws JsonProcessingException {
         List<String> mongoDocs = mongoAdminAPI.getAllMongoDocs(uri,"/get");
         if (!mongoDocs.isEmpty()) {
-            List<ReportDTO> dtos = test(String.join("", mongoDocs));
-            for (ReportDTO dto : dtos) {
-                System.out.println(dto);
-            }
+            List<ReportDTO> dtos = convertJsonToReportDTO(String.join("", mongoDocs));
+            Output.printReportDTOs(dtos);
         }
     }
 }

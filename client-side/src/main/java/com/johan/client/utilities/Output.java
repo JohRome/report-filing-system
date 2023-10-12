@@ -1,6 +1,10 @@
 package com.johan.client.utilities;
 
+import com.johan.client.dtos.ReportDTO;
+import com.johan.client.interfaces.Serialized;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 /**
  * Utility class for displaying output to the console, providing methods for printing menus, prompts, and error messages.
@@ -53,5 +57,11 @@ public class Output {
     public static void printError(String error) {
         // sout instead of log.info used because of unwanted new line break
         System.out.print(error);
+    }
+
+    public static void printReportDTOs(List<ReportDTO> dto) {
+        for (ReportDTO reportDTO : dto) {
+            log.info(reportDTO.toString());
+        }
     }
 }
