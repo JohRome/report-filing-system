@@ -61,7 +61,7 @@ public class Output {
 
     public static List<ReportDTO> printIndexedReports(List<ReportDTO> dto) {
         for (int i = 0; i < dto.size(); i++) {
-            System.out.println(i + " : " + dto.get(i));
+            System.out.println((i + 1) + " : " + dto.get(i));
         }
         return dto;
     }
